@@ -6,14 +6,17 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.String.format;
 import static ru.oshkin.TestData.*;
 
 public class WebDriverHomeworkTest {
@@ -56,8 +59,8 @@ public class WebDriverHomeworkTest {
         driver.get(link);
         logger.info("Перешли по ссылке");
 
-        WebElement button1 = driver.findElement(By.xpath("//button[@data-modal-id='new-log-reg']"));
-        button1.click();
+        WebElement logPage = driver.findElement(By.xpath("//button[@data-modal-id='new-log-reg']"));
+        logPage.click();
 
         WebElement mail = driver.findElement(By.xpath(" //input[@type='text' and @placeholder='Электронная почта']"));
         mail.sendKeys(login);
@@ -75,26 +78,30 @@ public class WebDriverHomeworkTest {
         userButton.click();
         logger.info("Раскрытие блока");
 
-        WebElement userButton1 = driver.findElement(By.xpath("//a[@title ='Личный кабинет']"));
-        userButton1.click();
+        WebElement personalAccountButton = driver.findElement(By.xpath("//a[@title ='Личный кабинет']"));
+        personalAccountButton.click();
         logger.info("Открываем личный кабинет");
 
-        WebElement userButton2 = driver.findElement(By.xpath("//a[@title ='О себе']"));
-        userButton2.click();
+        WebElement aboutUserButton = driver.findElement(By.xpath("//a[@title ='О себе']"));
+        aboutUserButton.click();
         logger.info("Открываем информацию о себе");
     }
 
     private void findElemSetValue(String locator, String value, String fieldName) {
-        WebElement firstNameButton = driver.findElement(By.xpath(locator));
-        firstNameButton.clear();
-        firstNameButton.sendKeys(value);
-        logger.info(String.format("Очищаем поле: %s и вводим новое поле: %s", fieldName, fieldName));
+//        JavascriptExecutor executor = (JavascriptExecutor) driver;
+//        executor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath(locator)));
+
+        WebDriverWait wait = new WebDriverWait(driver, 4);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+        element.clear();
+        element.sendKeys(value);
+        logger.info(format("Очищаем поле: %s и вводим новое поле: %s", fieldName, fieldName));
     }
 
     private void makeClick(String locator, String fieldName) {
-        WebElement calendarInput = driver.findElement(By.xpath(locator));
-        calendarInput.click();
-        logger.info(String.format("Кликаем на поле: %s", fieldName));
+        WebElement elem = driver.findElement(By.xpath(locator));
+        elem.click();
+        logger.info(format("Кликаем на поле: %s", fieldName));
     }
 
     private void setPrivateDataInfo() {
@@ -109,11 +116,9 @@ public class WebDriverHomeworkTest {
     }
 
     private void setMainInfo() {
-        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake " +
-                "js-custom-select-presentation']", "список стран");
+        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake " + "js-custom-select-presentation']", "список стран");
         makeClick("//button[@title='Узбекистан']", "Узбекистан");
-        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake" +
-                " js-custom-select-presentation']/child::span[contains(text(),'Город')]", "список городов");
+        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake" + " js-custom-select-presentation']/child::span[contains(text(),'Город')]", "список городов");
         makeClick("//button[@title='Бухара']", "город");
         makeClick("//input[@data-title ='Уровень знания английского языка']/following-sibling::div", "уровни языка");
         makeClick("//button[@title='Начальный уровень (Beginner)']", "(Beginner)");
@@ -123,48 +128,42 @@ public class WebDriverHomeworkTest {
 
         makeClick("//button[contains(text(),'Указать телефон')]", "форма ввода телефона");
 
-        findElemSetValue("//Input[@name ='phone' and @placeholder ='Номер телефона']", "+7 911 111-11-11", "номер телефона");
+        findElemSetValue("//Input[@name ='phone' and @placeholder ='Номер телефона']", PHONE_NUMBER, "номер телефона");
 
         makeClick("//button[contains(text(),'Отправить')]", "Отправить");
         makeClick("//div[@class ='modal__close ic-close js-close-modal']", "модальное окно с телефоном");
 
-//        List<WebElement> elements10 = driver.findElements(By.xpath("//div[@data-prefix ='contact']/descendant::button[contains(text(),'Удалить')]"));
-//        for (int i = 0; i < elements10.size(); i++) {
-//            try {
-//                elements10.get(i).click();
-//                logger.info(String.format("Удаляем контакт № %s", i));
-//            } catch (Exception ex) {
-//                logger.error(String.format("При удалении контакта № %s произошла ошибка", i), ex);
-//            }
-//        }
+        addContact(
+                "//div[@class ='lk-cv-block__select-options lk-cv-block__select-options_left " +
+                        "js-custom-select-options-container']/descendant::button[@title='Viber']",
+                "Viber", PHONE_NUMBER);
+        addContact(
+                "//div[@class ='lk-cv-block__select-options lk-cv-block__select-options_left " +
+                        "js-custom-select-options-container']/descendant::button[@title ='Skype']",
+                "Skype", SKYPE_LOGIN);
+    }
 
-
+    private void addContact(String locator, String contactType, String value) {
         driver.findElement(By.cssSelector("button.js-lk-cv-custom-select-add")).click();
         logger.info("Добавить контакт");
 
         makeClick("//span[contains(text(),'Способ связи')]", "Способ связи");
 
-        selectCommunicationWay("//div[@class ='lk-cv-block__select-options " +
-                "lk-cv-block__select-options_left js-custom-select-options-container']/descendant::button[@title='Viber']", "Viber");
-
-        findElemSetValue("//input[@id='id_contact-0-value']", "+7 966 666-66-66", "Viber контакт");
-        makeClick("//input[@id='id_contact-0-value']", "выбор способа связи");
-
-        driver.findElement(By.cssSelector("button.js-lk-cv-custom-select-add")).click();
-        logger.info("Добавить контакт");
-
-        makeClick("//span[contains(text(),'Способ связи')]", "способ связи");
-        selectCommunicationWay("//div[@class ='lk-cv-block__select-scroll " +
-                "lk-cv-block__select-scroll_service js-custom-select-options']/child::button[@title ='Skype']", "Skype");
-
-        findElemSetValue("//input[@id='id_contact-1-value']", "Test_login", "логин Skype");
-
-        makeClick("//input[@id='id_contact-1-value']", "способ связи");
+        selectCommunicationWay(locator, contactType);
+        List<WebElement> elements = driver.findElements(By.xpath("//input[@class='input input_straight-top-left input_straight-bottom-left lk-cv-block__input" +
+                " lk-cv-block__input_9 lk-cv-block__input_md-8']"));
+        for (WebElement element : elements) {
+            String text = element.getAttribute("value");
+            if (text.length() == 0) {
+                element.sendKeys(value);
+                element.click();
+            }
+        }
     }
 
     private void selectCommunicationWay(String locator, String name) {
         List<WebElement> communicationWays = driver.findElements(By.xpath(locator));
-        communicationWays.get(1).click();
-        logger.info(String.format("Выбираем способ связи %s"), name);
+        communicationWays.get(0).click();
+        logger.info(format("Выбираем способ связи %s", name));
     }
 }

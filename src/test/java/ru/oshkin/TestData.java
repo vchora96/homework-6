@@ -9,4 +9,7 @@ public class TestData {
     public static final String LATIN_SECOND_NAME = "Ivanov";
 
     public static final String DATE_OF_BIRTH = "13.11.2001";
+
+    public static final String PHONE_NUMBER = "+7 966 666-66-66";
+    public static final String SKYPE_LOGIN = "SKYPE-TEST-LOGIN";
 }
