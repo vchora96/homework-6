@@ -4,7 +4,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -16,19 +15,22 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ru.oshkin.TestData.*;
 import static ru.oshkin.TestLocatorsData.*;
 
 public class WebDriverHomeworkTest {
     private WebDriver driver;
     private static final Logger logger = LogManager.getLogger(WebDriverHomeworkTest.class.getName());
-    private final String login = "macorax714@idurse.com";
-    private final String pass = "Test12345";
+    private final String login = System.getenv("LOGIN");
+    private final String pass = System.getenv("PASS");
+
 
     @BeforeEach
     public void startUp() {
@@ -58,9 +60,11 @@ public class WebDriverHomeworkTest {
         startSession();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
+        //выполняем проверки
         logInByUser();
         checkPrivateDataInfo();
         checkMainInfo();
+        checkContactInfo();
     }
 
     private void logInByUser() {
@@ -176,6 +180,31 @@ public class WebDriverHomeworkTest {
                 "//div[@class ='lk-cv-block__select-options lk-cv-block__select-options_left " +
                         "js-custom-select-options-container']/descendant::button[@title ='Skype']",
                 "Skype", SKYPE_LOGIN);
+    }
+
+    private void checkContactInfo() {
+        WebElement skype = driver.findElement(By.xpath("//div[contains(text(),'Skype')]"));
+        boolean skypeEnabled = skype.isEnabled();
+        assertTrue(skypeEnabled);
+
+        WebElement viber = driver.findElement(By.xpath("//div[contains(text(),'Viber')]"));
+        boolean viberEnabled = viber.isEnabled();
+        assertTrue(viberEnabled);
+
+        List<WebElement> contacts = driver.findElements(By.xpath("//input[@class='input input_straight-top-left " +
+                "input_straight-bottom-left lk-cv-block__input" +
+                " lk-cv-block__input_9 lk-cv-block__input_md-8']"));
+        ArrayList<String> strings = new ArrayList<>();
+        for (WebElement contact : contacts) {
+            String text = contact.getAttribute("value");
+            strings.add(text);
+        }
+
+        boolean isPhoneContains = strings.contains(PHONE_NUMBER);
+        assertTrue(isPhoneContains);
+
+        boolean isSkypeLoginContains = strings.contains(SKYPE_LOGIN);
+        assertTrue(isSkypeLoginContains);
     }
 
     private void addContact(String locator, String contactType, String value) {
