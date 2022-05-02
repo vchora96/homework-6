@@ -3,13 +3,16 @@ package ru.oshkin;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,7 +20,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.oshkin.TestData.*;
+import static ru.oshkin.TestLocatorsData.*;
 
 public class WebDriverHomeworkTest {
     private WebDriver driver;
@@ -29,21 +34,18 @@ public class WebDriverHomeworkTest {
     public void startUp() {
         WebDriverManager.chromedriver().setup();
         logger.info("Драйвер поднялся");
-
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-//    @AfterEach
-//    public void finish() {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//    }
+    @AfterEach
+    public void finish() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 
     @Test
     public void setPrivetDataOtusTest() {
-        driver = new ChromeDriver();
+        startSession();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         logInByUser();
@@ -52,6 +54,13 @@ public class WebDriverHomeworkTest {
         setContactInfo();
 
         makeClick("//button[@title ='Сохранить и продолжить']", "Сохранить и продолжить");
+        driver.quit();
+        startSession();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        logInByUser();
+        checkPrivateDataInfo();
+        checkMainInfo();
     }
 
     private void logInByUser() {
@@ -74,7 +83,8 @@ public class WebDriverHomeworkTest {
         button.submit();
         logger.info("Попытка авторизации");
 
-        WebElement userButton = driver.findElement(By.xpath("//div[@class = 'header2-menu__item-wrapper header2-menu__item-wrapper__username']"));
+        WebElement userButton = driver.findElement(By.xpath("//div[@class = 'header2-menu__item-wrapper " +
+                "header2-menu__item-wrapper__username']"));
         userButton.click();
         logger.info("Раскрытие блока");
 
@@ -88,9 +98,6 @@ public class WebDriverHomeworkTest {
     }
 
     private void findElemSetValue(String locator, String value, String fieldName) {
-//        JavascriptExecutor executor = (JavascriptExecutor) driver;
-//        executor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath(locator)));
-
         WebDriverWait wait = new WebDriverWait(driver, 4);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
         element.clear();
@@ -105,30 +112,58 @@ public class WebDriverHomeworkTest {
     }
 
     private void setPrivateDataInfo() {
-        findElemSetValue("//input [@name ='fname']", NAME, "имя");
-        findElemSetValue("//input [@name ='fname_latin']", LATIN_NAME, "имя на английском");
-        findElemSetValue("//input [@name ='lname']", SECOND_NAME, "фамилия");
-        findElemSetValue("//input [@name ='lname_latin']", LATIN_SECOND_NAME, "фамилия на английском");
-        findElemSetValue("//input [@name ='blog_name']", BLOG_NAME, "имя в блоге");
-        findElemSetValue("//input [@name ='date_of_birth']", DATE_OF_BIRTH, "дата рождения");
+        findElemSetValue(NAME_LOCATOR, NAME, "имя");
+        findElemSetValue(LATIN_NAME_LOCATOR, LATIN_NAME, "имя на английском");
+        findElemSetValue(SECOND_NAME_LOCATOR, SECOND_NAME, "фамилия");
+        findElemSetValue(LATIN_SECOND_NAME_LOCATOR, LATIN_SECOND_NAME, "фамилия на английском");
+        findElemSetValue(BLOG_NAME_LOCATOR, BLOG_NAME, "имя в блоге");
+        findElemSetValue(DATE_OF_BIRTH_LOCATOR, DATE_OF_BIRTH, "дата рождения");
 
-        makeClick("//input[@title='День рождения']", "окно календаря");
+        makeClick(DATE_OF_BIRTH_LOCATOR, "окно календаря");
+    }
+
+    private void startSession() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        driver = new ChromeDriver(options);
+    }
+
+    private void checkPrivateDataInfo() {
+        assertEquals(NAME, driver.findElement(By.xpath(NAME_LOCATOR)).getAttribute("value"));
+        assertEquals(LATIN_NAME, driver.findElement(By.xpath(LATIN_NAME_LOCATOR)).getAttribute("value"));
+        assertEquals(SECOND_NAME, driver.findElement(By.xpath(SECOND_NAME_LOCATOR)).getAttribute("value"));
+        assertEquals(LATIN_SECOND_NAME, driver.findElement(By.xpath(LATIN_SECOND_NAME_LOCATOR)).getAttribute("value"));
+        assertEquals(BLOG_NAME, driver.findElement(By.xpath(BLOG_NAME_LOCATOR)).getAttribute("value"));
+        assertEquals(DATE_OF_BIRTH, driver.findElement(By.xpath(DATE_OF_BIRTH_LOCATOR)).getAttribute("value"));
     }
 
     private void setMainInfo() {
-        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake " + "js-custom-select-presentation']", "список стран");
+        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake " +
+                "lk-cv-block__input_select-fake js-custom-select-presentation']", "список стран");
         makeClick("//button[@title='Узбекистан']", "Узбекистан");
-        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake lk-cv-block__input_select-fake" + " js-custom-select-presentation']/child::span[contains(text(),'Город')]", "список городов");
+        makeClick("//div[@class ='input input_full lk-cv-block__input lk-cv-block__input_fake " +
+                        "lk-cv-block__input_select-fake js-custom-select-presentation']/child::span[contains(text(),'Город')]",
+                "список городов");
         makeClick("//button[@title='Бухара']", "город");
-        makeClick("//input[@data-title ='Уровень знания английского языка']/following-sibling::div", "уровни языка");
+        makeClick("//input[@data-title ='Уровень знания английского языка']/following-sibling::div",
+                "уровни языка");
         makeClick("//button[@title='Начальный уровень (Beginner)']", "(Beginner)");
+    }
+
+    private void checkMainInfo() {
+        assertEquals("Узбекистан", driver.findElement(By.xpath("//input[@name ='country']/following-sibling::div")).getText());
+        assertEquals("Бухара", driver.findElement(By.xpath("//input[@name ='city']/" +
+                "following-sibling::div")).getText());
+        assertEquals("Начальный уровень (Beginner)", driver.findElement(By.xpath("//input[@name ='english_level']/" +
+                "following-sibling::div")).getText());
     }
 
     private void setContactInfo() {
 
         makeClick("//button[contains(text(),'Указать телефон')]", "форма ввода телефона");
 
-        findElemSetValue("//Input[@name ='phone' and @placeholder ='Номер телефона']", PHONE_NUMBER, "номер телефона");
+        findElemSetValue("//Input[@name ='phone' and @placeholder ='Номер телефона']", PHONE_NUMBER,
+                "номер телефона");
 
         makeClick("//button[contains(text(),'Отправить')]", "Отправить");
         makeClick("//div[@class ='modal__close ic-close js-close-modal']", "модальное окно с телефоном");
@@ -150,7 +185,8 @@ public class WebDriverHomeworkTest {
         makeClick("//span[contains(text(),'Способ связи')]", "Способ связи");
 
         selectCommunicationWay(locator, contactType);
-        List<WebElement> elements = driver.findElements(By.xpath("//input[@class='input input_straight-top-left input_straight-bottom-left lk-cv-block__input" +
+        List<WebElement> elements = driver.findElements(By.xpath("//input[@class='input input_straight-top-left " +
+                "input_straight-bottom-left lk-cv-block__input" +
                 " lk-cv-block__input_9 lk-cv-block__input_md-8']"));
         for (WebElement element : elements) {
             String text = element.getAttribute("value");

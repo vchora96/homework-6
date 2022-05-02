@@ -1,32 +1,39 @@
-2022-05-02 19:07:17.460 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Драйвер поднялся
-2022-05-02 19:07:30.668 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Перешли по ссылке
-2022-05-02 19:07:32.351 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Ввели почту
-2022-05-02 19:07:32.685 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Ввели пароль
-2022-05-02 19:07:32.980 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Попытка авторизации
-2022-05-02 19:07:36.136 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Раскрытие блока
-2022-05-02 19:07:41.559 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Открываем личный кабинет
-2022-05-02 19:07:44.438 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Открываем информацию о себе
-2022-05-02 19:07:44.849 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: имя и вводим новое поле: имя
-2022-05-02 19:07:45.145 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: имя на английском и вводим новое поле: имя на английском
-2022-05-02 19:07:45.303 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: фамилия и вводим новое поле: фамилия
-2022-05-02 19:07:45.477 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: фамилия на английском и вводим новое поле: фамилия на английском
-2022-05-02 19:07:45.861 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: имя в блоге и вводим новое поле: имя в блоге
-2022-05-02 19:07:46.156 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: дата рождения и вводим новое поле: дата рождения
-2022-05-02 19:07:46.263 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: окно календаря
-2022-05-02 19:07:46.404 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: список стран
-2022-05-02 19:07:46.848 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Узбекистан
-2022-05-02 19:07:47.109 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: список городов
-2022-05-02 19:07:47.170 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: город
-2022-05-02 19:07:47.230 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: уровни языка
-2022-05-02 19:07:47.285 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: (Beginner)
-2022-05-02 19:07:47.389 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: форма ввода телефона
-2022-05-02 19:07:47.598 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: номер телефона и вводим новое поле: номер телефона
-2022-05-02 19:07:47.983 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Отправить
-2022-05-02 19:07:48.043 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: модальное окно с телефоном
-2022-05-02 19:07:48.186 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Добавить контакт
-2022-05-02 19:07:48.280 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Способ связи
-2022-05-02 19:07:48.351 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Выбираем способ связи Viber
-2022-05-02 19:07:48.627 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Добавить контакт
-2022-05-02 19:07:48.711 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Способ связи
-2022-05-02 19:07:48.874 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Выбираем способ связи Skype
-2022-05-02 19:07:52.196 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Сохранить и продолжить
+2022-05-02 20:34:45.809 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Драйвер поднялся
+2022-05-02 20:34:52.627 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Перешли по ссылке
+2022-05-02 20:34:55.932 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Ввели почту
+2022-05-02 20:34:57.827 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Ввели пароль
+2022-05-02 20:34:57.965 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Попытка авторизации
+2022-05-02 20:35:01.095 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Раскрытие блока
+2022-05-02 20:35:04.915 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Открываем личный кабинет
+2022-05-02 20:35:07.386 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Открываем информацию о себе
+2022-05-02 20:35:07.791 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: имя и вводим новое поле: имя
+2022-05-02 20:35:07.909 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: имя на английском и вводим новое поле: имя на английском
+2022-05-02 20:35:08.027 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: фамилия и вводим новое поле: фамилия
+2022-05-02 20:35:08.186 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: фамилия на английском и вводим новое поле: фамилия на английском
+2022-05-02 20:35:08.359 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: имя в блоге и вводим новое поле: имя в блоге
+2022-05-02 20:35:08.618 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: дата рождения и вводим новое поле: дата рождения
+2022-05-02 20:35:08.718 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: окно календаря
+2022-05-02 20:35:08.832 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: список стран
+2022-05-02 20:35:09.194 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Узбекистан
+2022-05-02 20:35:09.278 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: список городов
+2022-05-02 20:35:09.332 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: город
+2022-05-02 20:35:09.392 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: уровни языка
+2022-05-02 20:35:09.440 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: (Beginner)
+2022-05-02 20:35:09.644 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: форма ввода телефона
+2022-05-02 20:35:09.858 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Очищаем поле: номер телефона и вводим новое поле: номер телефона
+2022-05-02 20:35:10.015 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Отправить
+2022-05-02 20:35:10.080 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: модальное окно с телефоном
+2022-05-02 20:35:10.144 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Добавить контакт
+2022-05-02 20:35:10.195 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Способ связи
+2022-05-02 20:35:10.263 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Выбираем способ связи Viber
+2022-05-02 20:35:10.466 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Добавить контакт
+2022-05-02 20:35:10.507 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Способ связи
+2022-05-02 20:35:10.573 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Выбираем способ связи Skype
+2022-05-02 20:35:14.044 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Кликаем на поле: Сохранить и продолжить
+2022-05-02 20:35:21.903 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Перешли по ссылке
+2022-05-02 20:35:23.709 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Ввели почту
+2022-05-02 20:35:23.902 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Ввели пароль
+2022-05-02 20:35:24.047 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Попытка авторизации
+2022-05-02 20:35:27.563 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Раскрытие блока
+2022-05-02 20:35:31.813 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Открываем личный кабинет
+2022-05-02 20:35:33.901 [main] INFO  ru.oshkin.WebDriverHomeworkTest - Открываем информацию о себе
